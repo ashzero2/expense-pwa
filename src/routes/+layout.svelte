@@ -42,7 +42,7 @@
 	<main style="flex: 1 0 auto;">
 		{@render children?.()}
 	</main>
-	<nav class="bottom-nav border">
+	<nav class="bottom-nav border-t-4 border-b-gray-500 dark:border-gray-800">
 		<a href="/" aria-label="Home">
 			<Dashboard
 				class="h-[1.2rem] w-[1.2rem]"

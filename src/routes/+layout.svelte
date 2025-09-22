@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.css';
+	import { Toaster } from "$lib/components/ui/sonner/index.js";
 	import favicon from '$lib/assets/favicon.svg';
 	import { ModeWatcher } from "mode-watcher";
 	import { onMount } from 'svelte';
@@ -37,12 +38,13 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
+<Toaster />
 <ModeWatcher />
 <div style="min-height: 100vh; display: flex; flex-direction: column;">
 	<main style="flex: 1 0 auto;">
 		{@render children?.()}
 	</main>
-	<nav class="bottom-nav border-t-4 border-b-gray-500 dark:border-gray-800">
+	<nav class="bottom-nav border-t-4 border-b-gray-800 dark:border-gray-800">
 		<a href="/" aria-label="Home">
 			<Dashboard
 				class="h-[1.2rem] w-[1.2rem]"

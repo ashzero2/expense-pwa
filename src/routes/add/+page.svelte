@@ -1,6 +1,7 @@
 <script lang="ts">
 	// --- Imports Start ---
 	import { CategoryTypes } from '$lib/types';
+	import { supabase } from '$lib/supabaseClient';
 
 	// Shadcn UI imports
 	import { toast } from "svelte-sonner";
@@ -50,8 +51,20 @@
 		resetForm();
 	}
 
-	function addExpense() {
-		toast("Expense added successfully!")
+	async function addExpense() {
+		let expense = {
+			amount,
+			category,
+			date: dateValue ? df.format(dateValue.toDate(getLocalTimeZone())) : df.format(new Date()),
+			account,
+			note,
+		}
+		let {data, error} = await supabase.from('expenses').insert([expense]).select();
+		if (error) {
+			toast.error("Failed to add expense. Please try again.");
+		} else {
+			toast("Expense added successfully!")
+		}
 	}
 </script>
 

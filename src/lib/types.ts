@@ -14,3 +14,16 @@ export let CategoryTypes = [
 	{ name: "Health", icon: Health },
 	{ name: "Other", icon: Other }
 ];
+
+export type Expense = {
+	id: number;
+	amount: number;
+	category: string;
+	date: string;
+	account: string;
+	note?: string;
+};
+
+export function getCategoryIcon(categoryName: string) {
+	return CategoryTypes.find(category => category.name.toLowerCase() === categoryName.toLowerCase())?.icon;
+}

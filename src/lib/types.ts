@@ -16,14 +16,15 @@ export let CategoryTypes = [
 ];
 
 export type Expense = {
-	id: number;
-	amount: number;
-	category: string;
-	date: string;
-	account: string;
-	note?: string;
+  id: number;
+  amount: number;
+  type: 'income' | 'expense';
+  category: string;
+  description?: string | null;
+  date: Date;
 };
 
 export function getCategoryIcon(categoryName: string) {
+	console.log("Fetching icon for category:", categoryName);
 	return CategoryTypes.find(category => category.name.toLowerCase() === categoryName.toLowerCase())?.icon;
 }

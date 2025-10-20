@@ -5,8 +5,9 @@
 	import { toggleMode } from 'mode-watcher';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { getCategoryIcon } from '$lib/types';
+	import type { PageProps } from './$types';
 
-	let { data } = $props();
+	let { data }: PageProps = $props();
 </script>
 
 <main>
@@ -35,7 +36,7 @@
 		</div>
 		<div class="flex flex-col items-center justify-center p-2">
 			<p>Total</p>
-			<p>{data.balance}</p>
+			<p>{data.totalIncome - data.totalExpense}</p>
 		</div>
 	</div>
 	<div class="flex flex-col">
@@ -44,7 +45,7 @@
 			<div class="border-b-2 p-5 flex items-center justify-between">
 				<div class="flex gap-5">
 					<Component />
-					<p>{expense.account}</p>
+					<p>{expense.description}</p>
 				</div>
 				<p>{expense.amount}</p>
 			</div>

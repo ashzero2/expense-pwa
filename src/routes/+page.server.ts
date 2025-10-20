@@ -1,24 +1,18 @@
-import type { PageServerLoad } from './$types';
-import { supabase } from '$lib/supabaseClient';
 import type { Expense } from '$lib/types';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-	const { data: expenses, error: expenseError } = await supabase.from('expenses').select<'amount', Expense>();
-	const { data: incomes, error: incomeError } = await supabase.from('incomes').select<'amount', Expense>();
-	if (expenseError || incomeError) {
-		console.error('Error loading data:', expenseError?.message || incomeError?.message);
-		return { expenses: [], incomes: [] };
-	}
+	const resp = await fetch('http://localhost:3000/dashboard/overview');
+	const expenseList = await fetch('http://localhost:3000/transaction/list');
+	
+	const data = await resp.json();
+	const expenses: Expense[] = await expenseList.json();
 
-	let totalIncome = expenses?.reduce((sum, expense) => sum + expense.amount, 0) || 0;
-	let totalExpense = incomes?.reduce((sum, income) => sum + income.amount, 0) || 0;
-	let balance = totalIncome - totalExpense;
-
+	console.log(data.totalExpense);
 	return {
-		expenses: expenses ?? [],
-		incomes: incomes ?? [],
-		totalIncome,
-		totalExpense,
-		balance
+		totalIncome: data.totalIncome || 0,
+		totalExpense: data.totalExpense || 0,
+		balance: data.balance || 0,
+		expenses: expenses || []
 	};
-};
+};	
